@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <!-- Configuração do charset e da viewport para responsividade -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz de Carreira SENAI</title>
 
-    <!-- Importando a biblioteca EmailJS para envio de e-mails -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <!-- EmailJS SDK -->
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+    </script>
     <script type="text/javascript">
-        // Inicializando o EmailJS com a chave pública
         (function() {
             emailjs.init("Jc21rCy9lYrPi8hEF");
         })();
     </script>
 
-    <!-- Estilo CSS para layout, botões, textos e responsividade -->
     <style>
-        /* Estilização geral do corpo da página */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -26,8 +24,6 @@
             display: flex;
             flex-direction: column;
         }
-
-        /* Cabeçalho da página */
         header {
             background-color: white;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
@@ -45,16 +41,12 @@
             font-size: 26px;
             margin: 0;
         }
-
-        /* Conteúdo principal */
         main {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-
-        /* Container do quiz */
         .container {
             background-color: white;
             border-radius: 20px;
@@ -64,19 +56,13 @@
             max-width: 700px;
             text-align: center;
         }
-
-        /* Estilização dos títulos */
         h2 {
             color: #003366;
             margin-bottom: 10px;
         }
-
-        /* Parágrafos */
         p {
             color: #333;
         }
-
-        /* Botões principais */
         button {
             background-color: #004aad;
             color: white;
@@ -91,8 +77,6 @@
         button:hover {
             background-color: #003366;
         }
-
-        /* Botões de resposta */
         .answer-button {
             background-color: #e6f0ff;
             color: #003366;
@@ -108,31 +92,25 @@
         .answer-button:hover {
             background-color: #cce0ff;
         }
-
-        /* Botão selecionado */
         .selected {
             background-color: #99c2ff !important;
         }
-
-        /* Caixa de mensagens (sucesso ou erro) */
         #message-box {
-            background-color: #e6f7e6;
-            border: 1px solid #00b300;
-            color: #006600;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            display: none;
+        background-color: #e6f7e6;
+        border: 1px solid #00b300;
+        color: #006600;
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 15px;
+        display: none;
         }
 
-        /* Estilo para mensagens de erro */
         #message-box.error {
             background-color: #ffe6e6;
             border: 1px solid #ff3333;
             color: #cc0000;
         }
 
-        /* Input de e-mail */
         input[type="email"] {
             width: 100%;
             padding: 12px;
@@ -141,8 +119,6 @@
             margin: 12px 0;
             font-size: 16px;
         }
-
-        /* Rodapé */
         footer {
             text-align: center;
             padding: 12px;
@@ -154,24 +130,24 @@
 </head>
 <body>
 
-    <!-- Cabeçalho com logo e título -->
+    <!-- Header -->
     <header>
         <img src="logosenai.png" alt="Logo SENAI">
         <h1>SENAI Cachoeiro de Itapemirim</h1>
     </header>
 
-    <!-- Conteúdo principal -->
+    <!-- Main -->
     <main>
         <div class="container">
 
-            <!-- Tela de introdução -->
+            <!-- Intro -->
             <section id="intro">
                 <h2>Assistente de Carreira SENAI</h2>
                 <p>Responda ao nosso quiz e descubra qual <strong>Curso do SENAI</strong> mais combina com você!</p>
                 <button onclick="startQuiz()">Começar Quiz</button>
             </section>
 
-            <!-- Tela do quiz (perguntas e respostas) -->
+            <!-- Quiz -->
             <section id="quiz" style="display: none;">
                 <h3 id="question"></h3>
                 <div id="answer-buttons"></div>
@@ -181,12 +157,12 @@
                 </div>
             </section>
 
-            <!-- Caixa de mensagem (sucesso ou erro no envio do e-mail) -->
             <div id="message-box" style="display: none;">
-                <p id="message-text"></p>
+            <p id="message-text"></p>
             </div>
 
-            <!-- Tela de resultado -->
+
+            <!-- Resultado -->
             <section id="result" style="display: none;">
                 <h2>Seu Curso Ideal é:</h2>
                 <p id="result-text"></p>
@@ -199,36 +175,58 @@
         </div>
     </main>
 
-    <!-- Rodapé -->
+    <!-- Footer -->
     <footer>
         &copy; 2025 SENAI Cachoeiro de Itapemirim. Todos os direitos reservados.
     </footer>
 
-    <!-- Script JavaScript -->
+    <!-- Script -->
     <script>
-        // Variáveis de controle
         const messageBox = document.getElementById('message-box');
         const messageText = document.getElementById('message-text');
-
-        // Perguntas do quiz
         const questions = [
-            {
-                question: "O que você gosta mais?",
-                answers: [
-                    { text: "Trabalhar com computadores e tecnologia.", value: "desenvolvimento" },
-                    { text: "Resolver problemas mecânicos ou mexer com ferramentas.", value: "mecanica" },
-                    { text: "Cuidar da parte elétrica, energia ou instalações.", value: "eletro" },
-                    { text: "Organizar processos, estoques ou logística.", value: "logistica" }
-                ]
-            },
-            // ... (outras perguntas semelhantes)
-        ];
+    {
+        question: "O que você gosta mais?",
+        answers: [
+            { text: "Trabalhar com computadores e tecnologia.", value: "desenvolvimento" },
+            { text: "Resolver problemas mecânicos ou mexer com ferramentas.", value: "mecanica" },
+            { text: "Cuidar da parte elétrica, energia ou instalações.", value: "eletro" },
+            { text: "Organizar processos, estoques ou logística.", value: "logistica" }
+        ]
+    },
+    {
+        question: "Você prefere trabalhar...",
+        answers: [
+            { text: "Com desenvolvimento de sistemas, softwares ou automação.", value: "desenvolvimento" },
+            { text: "Fazendo manutenção de máquinas ou motores.", value: "mecanica" },
+            { text: "Instalando, reparando ou projetando sistemas elétricos.", value: "eletro" },
+            { text: "Planejando, controlando estoques ou otimizando processos.", value: "logistica" }
+        ]
+    },
+    {
+        question: "Seu ambiente de trabalho ideal é...",
+        answers: [
+            { text: "Escritórios, home office ou empresas de tecnologia.", value: "desenvolvimento" },
+            { text: "Oficinas, fábricas ou chão de produção mecânica.", value: "mecanica" },
+            { text: "Empresas de energia, indústrias ou ambientes elétricos.", value: "eletro" },
+            { text: "Escritórios, galpões ou centros de distribuição.", value: "logistica" }
+        ]
+    },
+    {
+        question: "Em um projeto, você gostaria de...",
+        answers: [
+            { text: "Criar programas, aplicativos ou sistemas digitais.", value: "desenvolvimento" },
+            { text: "Montar, consertar e ajustar peças ou motores.", value: "mecanica" },
+            { text: "Cuidar das instalações elétricas, manutenção e segurança.", value: "eletro" },
+            { text: "Organizar processos, prazos, materiais e produção.", value: "logistica" }
+        ]
+    }
+];
 
-        // Controle do estado do quiz
+
         let currentQuestionIndex = 0;
         let selections = [];
 
-        // Elementos da interface
         const intro = document.getElementById('intro');
         const quiz = document.getElementById('quiz');
         const result = document.getElementById('result');
@@ -236,7 +234,6 @@
         const answerButtons = document.getElementById('answer-buttons');
         const resultText = document.getElementById('result-text');
 
-        // Função para iniciar o quiz
         function startQuiz() {
             intro.style.display = 'none';
             quiz.style.display = 'block';
@@ -245,7 +242,6 @@
             showQuestion();
         }
 
-        // Mostrar a pergunta atual
         function showQuestion() {
             const currentQuestion = questions[currentQuestionIndex];
             questionElement.innerText = currentQuestion.question;
@@ -256,16 +252,13 @@
                 button.innerText = answer.text;
                 button.className = 'answer-button';
                 button.onclick = () => selectAnswer(answer, button);
-
                 if (selections[currentQuestionIndex] === answer.value) {
                     button.classList.add('selected');
                 }
-
                 answerButtons.appendChild(button);
             });
         }
 
-        // Selecionar uma resposta
         function selectAnswer(answer, button) {
             selections[currentQuestionIndex] = answer.value;
             const buttons = answerButtons.querySelectorAll('button');
@@ -273,7 +266,6 @@
             button.classList.add('selected');
         }
 
-        // Ir para a próxima pergunta ou exibir o resultado
         function nextQuestion() {
             if (currentQuestionIndex < questions.length - 1) {
                 currentQuestionIndex++;
@@ -283,7 +275,6 @@
             }
         }
 
-        // Voltar para a pergunta anterior
         function previousQuestion() {
             if (currentQuestionIndex > 0) {
                 currentQuestionIndex--;
@@ -291,52 +282,50 @@
             }
         }
 
-        // Exibir o resultado final do quiz
         function showResult() {
-            quiz.style.display = 'none';
-            result.style.display = 'block';
+    quiz.style.display = 'none';
+    result.style.display = 'block';
 
-            const counts = {
-                desenvolvimento: 0,
-                mecanica: 0,
-                eletro: 0,
-                logistica: 0
-            };
+    const counts = {
+        desenvolvimento: 0,
+        mecanica: 0,
+        eletro: 0,
+        logistica: 0
+    };
 
-            selections.forEach(value => {
-                counts[value] = (counts[value] || 0) + 1;
-            });
+    selections.forEach(value => {
+        counts[value] = (counts[value] || 0) + 1;
+    });
 
-            let topValue = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+    let topValue = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
 
-            let course = "";
-            switch (topValue) {
-                case "desenvolvimento":
-                    course = "Técnico em Desenvolvimento de Sistemas";
-                    break;
-                case "mecanica":
-                    course = "Técnico em Mecânica, Torneiro Mecânico ou Mecânico de Motores Ciclo Otto";
-                    break;
-                case "eletro":
-                    course = "Técnico em Eletrotécnica, Técnico em Eletromecânica ou Eletricista Industrial";
-                    break;
-                case "logistica":
-                    course = "Técnico em Planejamento e Controle da Produção";
-                    break;
-                default:
-                    course = "Diversos cursos disponíveis! Explore nossas opções no SENAI.";
-            }
+    let course = "";
+    switch (topValue) {
+        case "desenvolvimento":
+            course = "Técnico em Desenvolvimento de Sistemas";
+            break;
+        case "mecanica":
+            course = "Técnico em Mecânica, Torneiro Mecânico ou Mecânico de Motores Ciclo Otto";
+            break;
+        case "eletro":
+            course = "Técnico em Eletrotécnica, Técnico em Eletromecânica ou Eletricista Industrial";
+            break;
+        case "logistica":
+            course = "Técnico em Planejamento e Controle da Produção";
+            break;
+        default:
+            course = "Diversos cursos disponíveis! Explore nossas opções no SENAI.";
+    }
 
-            resultText.innerText = `${course} em Cachoeiro de Itapemirim.`;
-        }
+    resultText.innerText = ${course} em Cachoeiro de Itapemirim.;
+}
 
-        // Reiniciar o quiz
+
         function restartQuiz() {
             result.style.display = 'none';
             intro.style.display = 'block';
         }
 
-        // Enviar resultado por e-mail usando EmailJS
         function sendEmail() {
             const email = document.getElementById('email').value;
             const resultado = resultText.innerText;
@@ -344,7 +333,7 @@
             const params = {
                 to_email: email,
                 message: 
-`Olá!
+Olá!
 
 Obrigado por participar do nosso questionário de carreira no SENAI Cachoeiro de Itapemirim.
 
@@ -358,21 +347,21 @@ https://loja.senaies.com.br/cursos/cidade/cachoeiro-de-itapemirim/5513
 Agradecemos sua visita ao SENAI!
 
 Atenciosamente,
-Turma 3 Desenvolvimento de Sistemas`
+Turma 3 Desenvolvimento de Sistemas
             };
 
             emailjs.send("service_urr7vo3", "template_pzber5t", params)
                 .then(() => {
-                    messageBox.style.display = 'block';
-                    messageBox.classList.remove('error');
-                    messageText.innerText = "✅ Resultado enviado com sucesso para seu e-mail!";
-                }, (error) => {
-                    messageBox.style.display = 'block';
-                    messageBox.classList.add('error');
-                    messageText.innerText = "❌ Ocorreu um erro ao enviar o e-mail. Verifique seus dados e tente novamente.";
-                    console.error('FAILED...', error);
-                });
-        }
+            messageBox.style.display = 'block';
+            messageBox.classList.remove('error');
+            messageText.innerText = "✅ Resultado enviado com sucesso para seu e-mail!";
+        }, (error) => {
+            messageBox.style.display = 'block';
+            messageBox.classList.add('error');
+            messageText.innerText = "❌ Ocorreu um erro ao enviar o e-mail. Verifique seus dados e tente novamente.";
+            console.error('FAILED...', error);
+        });
+}
     </script>
 </body>
 </html>
