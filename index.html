@@ -143,6 +143,7 @@
             <!-- Intro -->
             <section id="intro">
                 <h2>Assistente de Carreira SENAI</h2>
+                <p>Responda ao nosso quiz e descubra qual <strong>Curso Técnico</strong> mais combina com você!</p>
                 <p>Responda ao nosso quiz e descubra qual <strong>Curso do SENAI</strong> mais combina com você!</p>
                 <button onclick="startQuiz()">Começar Quiz</button>
             </section>
@@ -317,7 +318,7 @@
             course = "Diversos cursos disponíveis! Explore nossas opções no SENAI.";
     }
 
-    resultText.innerText = ${course} em Cachoeiro de Itapemirim.;
+    resultText.innerText = `${course} em Cachoeiro de Itapemirim.`;
 }
 
 
@@ -333,7 +334,7 @@
             const params = {
                 to_email: email,
                 message: 
-Olá!
+`Olá!
 
 Obrigado por participar do nosso questionário de carreira no SENAI Cachoeiro de Itapemirim.
 
@@ -347,7 +348,7 @@ https://loja.senaies.com.br/cursos/cidade/cachoeiro-de-itapemirim/5513
 Agradecemos sua visita ao SENAI!
 
 Atenciosamente,
-Turma 3 Desenvolvimento de Sistemas
+Turma 3 Desenvolvimento de Sistemas`
             };
 
             emailjs.send("service_urr7vo3", "template_pzber5t", params)
