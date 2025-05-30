@@ -109,6 +109,12 @@
         background-color: #99c2ff !important;
       }
 
+      .highlight {
+        color: #004aad;
+        font-weight: bold;
+        font-size: 18px;
+      }
+
       #message-box {
         background-color: #e6f7e6;
         border: 1px solid #00b300;
@@ -353,7 +359,7 @@
             course = "Diversos cursos disponíveis! Explore nossas opções no SENAI.";
         }
 
-        resultText.innerText = `${course} em Cachoeiro de Itapemirim.`;
+        resultText.innerHTML = `<span class="highlight">${course}</span> em Cachoeiro de Itapemirim.`;
       }
 
       function restartQuiz() {
