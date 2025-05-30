@@ -165,9 +165,9 @@
           <h3 id="question"></h3>
           <div id="answer-buttons"></div>
           <div>
-            <button onclick="previousQuestion()">Anterior</button>
-            <button onclick="nextQuestion()">Próxima</button>
-          </div>
+        <button id="prev-button" onclick="previousQuestion()">Anterior</button>
+        <button onclick="nextQuestion()">Próxima</button>
+        </div>
         </section>
 
         <div id="message-box">
@@ -191,6 +191,7 @@
     </footer>
 
     <script>
+      const prevButton = document.getElementById('prev-button');
       const messageBox = document.getElementById('message-box');
       const messageText = document.getElementById('message-text');
 
@@ -264,20 +265,27 @@
         const currentQuestion = questions[currentQuestionIndex];
         questionElement.innerText = currentQuestion.question;
         answerButtons.innerHTML = '';
-
-                currentQuestion.answers.forEach(answer => {
+      
+        currentQuestion.answers.forEach(answer => {
           const button = document.createElement('button');
           button.innerText = answer.text;
           button.className = 'answer-button';
           button.onclick = () => selectAnswer(answer, button);
-
           if (selections[currentQuestionIndex] === answer.value) {
             button.classList.add('selected');
           }
-
           answerButtons.appendChild(button);
         });
+      
+        // Corrigido: lógica de visibilidade do botão Anterior
+        const prevButton = document.getElementById('prev-button');
+        if (currentQuestionIndex === 0) {
+          prevButton.style.display = 'none';
+        } else {
+          prevButton.style.display = 'inline-block';
+        }
       }
+
 
       function selectAnswer(answer, button) {
         selections[currentQuestionIndex] = answer.value;
