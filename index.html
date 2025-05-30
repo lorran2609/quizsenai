@@ -166,7 +166,7 @@
           <div id="answer-buttons"></div>
           <div>
         <button id="prev-button" onclick="previousQuestion()">Anterior</button>
-        <button onclick="nextQuestion()">Próxima</button>
+        <button id="next-button" onclick="nextQuestion()" disabled>Próxima</button>
         </div>
         </section>
 
@@ -288,19 +288,23 @@
       }
     
       // Desativa botão "Próxima" se nenhuma resposta foi selecionada
-      const nextBtn = document.querySelector('#quiz button:nth-of-type(2)');
+      const nextBtn = document.getElementById('next-button');
       nextBtn.disabled = !selections[currentQuestionIndex];
     }
 
 
       function selectAnswer(answer, button) {
-        selections[currentQuestionIndex] = answer.value;
+      selections[currentQuestionIndex] = answer.value;
+    
+      const buttons = answerButtons.querySelectorAll('button');
+      buttons.forEach(btn => btn.classList.remove('selected'));
+    
+      button.classList.add('selected');
+    
+      // Habilita o botão "Próxima"
+      document.getElementById('next-button').disabled = false;
+    }
 
-        const buttons = answerButtons.querySelectorAll('button');
-        buttons.forEach(btn => btn.classList.remove('selected'));
-
-        button.classList.add('selected');
-      }
 
       function nextQuestion() {
         if (currentQuestionIndex < questions.length - 1) {
