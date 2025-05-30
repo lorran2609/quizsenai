@@ -392,6 +392,10 @@
           messageBox.classList.add('error');
           messageText.innerText = "❌ Ocorreu um erro ao enviar o e-mail. Verifique seus dados e tente novamente.";
           console.error('FAILED...', error);
+
+          setTimeout(() => {
+            messageBox.style.display = 'none';
+          }, 5000);
         });
     }
     </script>
