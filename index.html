@@ -275,6 +275,12 @@
             button.classList.add('selected');
           }
           answerButtons.appendChild(button);
+          const nextBtn = document.querySelector('#quiz button:nth-of-type(2)'); // botão Próxima
+          nextBtn.disabled = !selections[currentQuestionIndex];
+          answerButtons.querySelectorAll('button').forEach(button => {
+          button.onclick = () => {
+          selectAnswer(answer, button);
+          nextBtn.disabled = false;
         });
       
         // Corrigido: lógica de visibilidade do botão Anterior
@@ -353,31 +359,35 @@
       function restartQuiz() {
         result.style.display = 'none';
         intro.style.display = 'block';
+        messageBox.style.display = 'none';
       }
 
       function sendEmail() {
-        const email = document.getElementById('email').value;
-        const resultado = resultText.innerText;
-
-        const params = {
-          to_email: email,
-          message: `Olá!\n\nObrigado por participar do nosso questionário de carreira no SENAI Cachoeiro de Itapemirim.\n\nO curso ideal para você é:\n\n${resultado}\n\nAcesse mais informações e faça sua matrícula aqui:\nhttps://loja.senaies.com.br/cursos/cidade/cachoeiro-de-itapemirim/5513\n\nAgradecemos sua visita ao SENAI!\n\nAtenciosamente,\nTurma 3 Desenvolvimento de Sistemas`
-        };
-
-        emailjs.send("service_urr7vo3", "template_pzber5t", params)
-          .then(() => {
-            messageBox.style.display = 'block';
-            messageBox.classList.remove('error');
-            messageText.innerText = "✅ Resultado enviado com sucesso para seu e-mail!";
-            setTimeout(() => {
+      const email = document.getElementById('email').value;
+      const resultado = resultText.innerText;
+    
+      const params = {
+        to_email: email,
+        message: `Olá!\n\nObrigado por participar do nosso questionário de carreira no SENAI Cachoeiro de Itapemirim.\n\nO curso ideal para você é:\n\n${resultado}\n\nAcesse mais informações e faça sua matrícula aqui:\nhttps://loja.senaies.com.br/cursos/cidade/cachoeiro-de-itapemirim/5513\n\nAgradecemos sua visita ao SENAI!\n\nAtenciosamente,\nTurma 3 Desenvolvimento de Sistemas`
+      };
+    
+      emailjs.send("service_urr7vo3", "template_pzber5t", params)
+        .then(() => {
+          messageBox.style.display = 'block';
+          messageBox.classList.remove('error');
+          messageText.innerText = "✅ Resultado enviado com sucesso para seu e-mail!";
+    
+          setTimeout(() => {
             messageBox.style.display = 'none';
-            }, 6500); (error) => {
-            messageBox.style.display = 'block';
-            messageBox.classList.add('error');
-            messageText.innerText = "❌ Ocorreu um erro ao enviar o e-mail. Verifique seus dados e tente novamente.";
-            console.error('FAILED...', error);
-          });
-      }
+          }, 5000); // 5 segundos para sumir
+        })
+        .catch((error) => {
+          messageBox.style.display = 'block';
+          messageBox.classList.add('error');
+          messageText.innerText = "❌ Ocorreu um erro ao enviar o e-mail. Verifique seus dados e tente novamente.";
+          console.error('FAILED...', error);
+        });
+    }
     </script>
   </body>
 </html>
