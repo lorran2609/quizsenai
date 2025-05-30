@@ -368,7 +368,8 @@
           .then(() => {
             messageBox.style.display = 'block';
             messageBox.classList.remove('error');
-            messageText.innerText = "✅ Resultado enviado com sucesso para seu e-mail!";setTimeout(() => {
+            messageText.innerText = "✅ Resultado enviado com sucesso para seu e-mail!";
+            setTimeout(() => {
             messageBox.style.display = 'none';
             }, 6500); (error) => {
             messageBox.style.display = 'block';
