@@ -368,8 +368,9 @@
           .then(() => {
             messageBox.style.display = 'block';
             messageBox.classList.remove('error');
-            messageText.innerText = "✅ Resultado enviado com sucesso para seu e-mail!";
-          }, (error) => {
+            messageText.innerText = "✅ Resultado enviado com sucesso para seu e-mail!";setTimeout(() => {
+            messageBox.style.display = 'none';
+            }, 6500); (error) => {
             messageBox.style.display = 'block';
             messageBox.classList.add('error');
             messageText.innerText = "❌ Ocorreu um erro ao enviar o e-mail. Verifique seus dados e tente novamente.";
