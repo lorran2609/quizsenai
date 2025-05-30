@@ -1,350 +1,373 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quiz de Carreira SENAI</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz de Carreira SENAI</title>
 
-  <!-- EmailJS SDK -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script>
-    (function () {
-      emailjs.init("Jc21rCy9lYrPi8hEF");
-    })();
-  </script>
+    <!-- EmailJS SDK -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+    <script>
+      (function () {
+        emailjs.init("Jc21rCy9lYrPi8hEF");
+      })();
+    </script>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom right, #f0f8ff, #ffffff);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    header {
-      background-color: white;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-    }
-    header img {
-      height: 50px;
-    }
-    header h1 {
-      color: #003366;
-      font-size: 26px;
-      margin: 0;
-    }
-    main {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .container {
-      background-color: white;
-      border-radius: 20px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-      padding: 40px;
-      width: 90%;
-      max-width: 700px;
-      text-align: center;
-    }
-    h2 {
-      color: #003366;
-      margin-bottom: 10px;
-    }
-    p {
-      color: #333;
-    }
-    button {
-      background-color: #004aad;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 16px;
-      margin: 10px;
-      transition: background-color 0.3s;
-    }
-    button:hover {
-      background-color: #003366;
-    }
-    .answer-button {
-      background-color: #e6f0ff;
-      color: #003366;
-      border: 1px solid #b3d1ff;
-      display: block;
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      margin: 8px 0;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .answer-button:hover {
-      background-color: #cce0ff;
-    }
-    .selected {
-      background-color: #99c2ff !important;
-    }
-    #message-box {
-      background-color: #e6f7e6;
-      border: 1px solid #00b300;
-      color: #006600;
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 15px;
-      display: none;
-    }
-    #message-box.error {
-      background-color: #ffe6e6;
-      border: 1px solid #ff3333;
-      color: #cc0000;
-    }
-    input[type="email"] {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      margin: 12px 0;
-      font-size: 16px;
-    }
-    footer {
-      text-align: center;
-      padding: 12px;
-      font-size: 14px;
-      color: #777;
-    }
-  </style>
-</head>
-<body>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom right, #f0f8ff, #ffffff);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
 
-  <header>
-    <img src="logosenai.png" alt="Logo SENAI" />
-    <h1>SENAI Cachoeiro de Itapemirim</h1>
-  </header>
+      header {
+        background-color: white;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+      }
 
-  <main>
-    <div class="container">
-      <!-- Intro -->
-      <section id="intro">
-        <h2>Assistente de Carreira SENAI</h2>
-        <p>Responda ao nosso quiz e descubra qual <strong>Curso do SENAI</strong> mais combina com você!</p>
-        <button onclick="startQuiz()">Começar Quiz</button>
-      </section>
+      header img {
+        height: 50px;
+      }
 
-      <!-- Quiz -->
-      <section id="quiz" style="display: none;">
-        <h3 id="question"></h3>
-        <div id="answer-buttons"></div>
-        <div>
-          <button onclick="previousQuestion()">Anterior</button>
-          <button onclick="nextQuestion()">Próxima</button>
+      header h1 {
+        color: #003366;
+        font-size: 26px;
+        margin: 0;
+      }
+
+      main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .container {
+        background-color: white;
+        border-radius: 20px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        padding: 40px;
+        width: 90%;
+        max-width: 700px;
+        text-align: center;
+      }
+
+      h2 {
+        color: #003366;
+        margin-bottom: 10px;
+      }
+
+      p {
+        color: #333;
+      }
+
+      button {
+        background-color: #004aad;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        margin: 10px;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #003366;
+      }
+
+      .answer-button {
+        background-color: #e6f0ff;
+        color: #003366;
+        border: 1px solid #b3d1ff;
+        display: block;
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        margin: 8px 0;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .answer-button:hover {
+        background-color: #cce0ff;
+      }
+
+      .selected {
+        background-color: #99c2ff !important;
+      }
+
+      #message-box {
+        background-color: #e6f7e6;
+        border: 1px solid #00b300;
+        color: #006600;
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 15px;
+        display: none;
+      }
+
+      #message-box.error {
+        background-color: #ffe6e6;
+        border: 1px solid #ff3333;
+        color: #cc0000;
+      }
+
+      input[type="email"] {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin: 12px 0;
+        font-size: 16px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 12px;
+        font-size: 14px;
+        color: #777;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <img src="logosenai.png" alt="Logo SENAI" />
+      <h1>SENAI Cachoeiro de Itapemirim</h1>
+    </header>
+
+    <main>
+      <div class="container">
+        <!-- Intro -->
+        <section id="intro">
+          <h2>Assistente de Carreira SENAI</h2>
+          <p>
+            Responda ao nosso quiz e descubra qual <strong>Curso do SENAI</strong> mais combina com você!
+          </p>
+          <button onclick="startQuiz()">Começar Quiz</button>
+        </section>
+
+        <!-- Quiz -->
+        <section id="quiz" style="display: none;">
+          <h3 id="question"></h3>
+          <div id="answer-buttons"></div>
+          <div>
+            <button onclick="previousQuestion()">Anterior</button>
+            <button onclick="nextQuestion()">Próxima</button>
+          </div>
+        </section>
+
+        <div id="message-box">
+          <p id="message-text"></p>
         </div>
-      </section>
 
-      <div id="message-box">
-        <p id="message-text"></p>
+        <!-- Resultado -->
+        <section id="result" style="display: none;">
+          <h2>Seu Curso Ideal é:</h2>
+          <p id="result-text"></p>
+          <p>Digite seu e-mail para receber seu resultado:</p>
+          <input type="email" id="email" placeholder="seuemail@exemplo.com" />
+          <button onclick="sendEmail()">Enviar Resultado</button>
+          <button onclick="restartQuiz()">Refazer Quiz</button>
+        </section>
       </div>
+    </main>
 
-      <!-- Resultado -->
-      <section id="result" style="display: none;">
-        <h2>Seu Curso Ideal é:</h2>
-        <p id="result-text"></p>
-        <p>Digite seu e-mail para receber seu resultado:</p>
-        <input type="email" id="email" placeholder="seuemail@exemplo.com" />
-        <button onclick="sendEmail()">Enviar Resultado</button>
-        <button onclick="restartQuiz()">Refazer Quiz</button>
-      </section>
-    </div>
-  </main>
+    <footer>
+      &copy; 2025 SENAI Cachoeiro de Itapemirim. Todos os direitos reservados.
+    </footer>
 
-  <footer>
-    &copy; 2025 SENAI Cachoeiro de Itapemirim. Todos os direitos reservados.
-  </footer>
+    <script>
+      const messageBox = document.getElementById('message-box');
+      const messageText = document.getElementById('message-text');
 
-  <script>
-    const messageBox = document.getElementById('message-box');
-    const messageText = document.getElementById('message-text');
-
-    const questions = [
-      {
-        question: "Como você gosta de resolver problemas?",
-        answers: [
-          { text: "Pensando em soluções criativas com tecnologia.", value: "desenvolvimento" },
-          { text: "Colocando a mão na massa e testando na prática.", value: "mecanica" },
-          { text: "Analisando a situação e resolvendo com lógica e segurança.", value: "eletro" },
-          { text: "Organizando etapas e distribuindo tarefas.", value: "logistica" }
-        ]
-      },
-      {
-        question: "Qual dessas frases combina mais com você?",
-        answers: [
-          { text: "Adoro aprender sobre tecnologia e inovação.", value: "desenvolvimento" },
-          { text: "Gosto de consertar coisas e ver tudo funcionando de novo.", value: "mecanica" },
-          { text: "Me interesso por energia, instalações e segurança elétrica.", value: "eletro" },
-          { text: "Sou bom em organizar espaços, rotinas e prazos.", value: "logistica" }
-        ]
-      },
-      {
-        question: "Quando criança, você gostava mais de...",
-        answers: [
-          { text: "Brincar no computador ou com games.", value: "desenvolvimento" },
-          { text: "Montar/desmontar brinquedos e entender como funcionavam.", value: "mecanica" },
-          { text: "Ligar e desligar aparelhos, testar tomadas.", value: "eletro" },
-          { text: "Organizar os brinquedos ou brincar de loja.", value: "logistica" }
-        ]
-      },
-      {
-        question: "Você se considera uma pessoa mais...",
-        answers: [
-          { text: "Lógica, analítica e conectada com tecnologia.", value: "desenvolvimento" },
-          { text: "Prática, curiosa e com habilidades manuais.", value: "mecanica" },
-          { text: "Cuidadosa, responsável e técnica.", value: "eletro" },
-          { text: "Organizada, eficiente e boa de planejamento.", value: "logistica" }
-        ]
-      },
-      {
-        question: "Qual dessas situações seria mais prazerosa para você?",
-        answers: [
-          { text: "Criar um app que resolve um problema real.", value: "desenvolvimento" },
-          { text: "Consertar uma bicicleta, motor ou equipamento.", value: "mecanica" },
-          { text: "Instalar uma iluminação ou painel elétrico.", value: "eletro" },
-          { text: "Montar um plano para entregar produtos mais rápido.", value: "logistica" }
-        ]
-      }
-    ];
-
-    let currentQuestionIndex = 0;
-    let selections = [];
-
-    const intro = document.getElementById('intro');
-    const quiz = document.getElementById('quiz');
-    const result = document.getElementById('result');
-    const questionElement = document.getElementById('question');
-    const answerButtons = document.getElementById('answer-buttons');
-    const resultText = document.getElementById('result-text');
-
-    function startQuiz() {
-      intro.style.display = 'none';
-      quiz.style.display = 'block';
-      currentQuestionIndex = 0;
-      selections = [];
-      showQuestion();
-    }
-
-    function showQuestion() {
-      const currentQuestion = questions[currentQuestionIndex];
-      questionElement.innerText = currentQuestion.question;
-      answerButtons.innerHTML = '';
-
-      currentQuestion.answers.forEach(answer => {
-        const button = document.createElement('button');
-        button.innerText = answer.text;
-        button.className = 'answer-button';
-        button.onclick = () => selectAnswer(answer, button);
-        if (selections[currentQuestionIndex] === answer.value) {
-          button.classList.add('selected');
+      const questions = [
+        {
+          question: "Como você gosta de resolver problemas?",
+          answers: [
+            { text: "Pensando em soluções criativas com tecnologia.", value: "desenvolvimento" },
+            { text: "Colocando a mão na massa e testando na prática.", value: "mecanica" },
+            { text: "Analisando a situação e resolvendo com lógica e segurança.", value: "eletro" },
+            { text: "Organizando etapas e distribuindo tarefas.", value: "logistica" }
+          ]
+        },
+        {
+          question: "Qual dessas frases combina mais com você?",
+          answers: [
+            { text: "Adoro aprender sobre tecnologia e inovação.", value: "desenvolvimento" },
+            { text: "Gosto de consertar coisas e ver tudo funcionando de novo.", value: "mecanica" },
+            { text: "Me interesso por energia, instalações e segurança elétrica.", value: "eletro" },
+            { text: "Sou bom em organizar espaços, rotinas e prazos.", value: "logistica" }
+          ]
+        },
+        {
+          question: "Quando criança, você gostava mais de...",
+          answers: [
+            { text: "Brincar no computador ou com games.", value: "desenvolvimento" },
+            { text: "Montar/desmontar brinquedos e entender como funcionavam.", value: "mecanica" },
+            { text: "Ligar e desligar aparelhos, testar tomadas.", value: "eletro" },
+            { text: "Organizar os brinquedos ou brincar de loja.", value: "logistica" }
+          ]
+        },
+        {
+          question: "Você se considera uma pessoa mais...",
+          answers: [
+            { text: "Lógica, analítica e conectada com tecnologia.", value: "desenvolvimento" },
+            { text: "Prática, curiosa e com habilidades manuais.", value: "mecanica" },
+            { text: "Cuidadosa, responsável e técnica.", value: "eletro" },
+            { text: "Organizada, eficiente e boa de planejamento.", value: "logistica" }
+          ]
+        },
+        {
+          question: "Qual dessas situações seria mais prazerosa para você?",
+          answers: [
+            { text: "Criar um app que resolve um problema real.", value: "desenvolvimento" },
+            { text: "Consertar uma bicicleta, motor ou equipamento.", value: "mecanica" },
+            { text: "Instalar uma iluminação ou painel elétrico.", value: "eletro" },
+            { text: "Montar um plano para entregar produtos mais rápido.", value: "logistica" }
+          ]
         }
-        answerButtons.appendChild(button);
-      });
-    }
-      // Mostrar ou esconder botão "Anterior"
-    const prevButton = document.getElementById('prev-button');
-    if (currentQuestionIndex === 0) {
-        prevButton.style.display = 'none';
-    } else {
-        prevButton.style.display = 'inline-block';
-    }
-}
+      ];
 
-    function selectAnswer(answer, button) {
-      selections[currentQuestionIndex] = answer.value;
-      const buttons = answerButtons.querySelectorAll('button');
-      buttons.forEach(btn => btn.classList.remove('selected'));
-      button.classList.add('selected');
-    }
+      let currentQuestionIndex = 0;
+      let selections = [];
 
-    function nextQuestion() {
-      if (currentQuestionIndex < questions.length - 1) {
-        currentQuestionIndex++;
-        showQuestion();
-      } else {
-        showResult();
-      }
-    }
+      const intro = document.getElementById('intro');
+      const quiz = document.getElementById('quiz');
+      const result = document.getElementById('result');
+      const questionElement = document.getElementById('question');
+      const answerButtons = document.getElementById('answer-buttons');
+      const resultText = document.getElementById('result-text');
 
-    function previousQuestion() {
-      if (currentQuestionIndex > 0) {
-        currentQuestionIndex--;
+      function startQuiz() {
+        intro.style.display = 'none';
+        quiz.style.display = 'block';
+        currentQuestionIndex = 0;
+        selections = [];
         showQuestion();
       }
-    }
 
-    function showResult() {
-      quiz.style.display = 'none';
-      result.style.display = 'block';
+      function showQuestion() {
+        const currentQuestion = questions[currentQuestionIndex];
+        questionElement.innerText = currentQuestion.question;
+        answerButtons.innerHTML = '';
 
-      const counts = { desenvolvimento: 0, mecanica: 0, eletro: 0, logistica: 0 };
-      selections.forEach(value => {
-        counts[value] = (counts[value] || 0) + 1;
-      });
+                currentQuestion.answers.forEach(answer => {
+          const button = document.createElement('button');
+          button.innerText = answer.text;
+          button.className = 'answer-button';
+          button.onclick = () => selectAnswer(answer, button);
 
-      const topValue = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+          if (selections[currentQuestionIndex] === answer.value) {
+            button.classList.add('selected');
+          }
 
-      let course = "";
-      switch (topValue) {
-        case "desenvolvimento":
-          course = "Técnico em Desenvolvimento de Sistemas";
-          break;
-        case "mecanica":
-          course = "Técnico em Mecânica, Torneiro Mecânico ou Mecânico de Motores Ciclo Otto";
-          break;
-        case "eletro":
-          course = "Técnico em Eletrotécnica, Técnico em Eletromecânica ou Eletricista Industrial";
-          break;
-        case "logistica":
-          course = "Técnico em Planejamento e Controle da Produção";
-          break;
-        default:
-          course = "Diversos cursos disponíveis! Explore nossas opções no SENAI.";
-      }
-
-      resultText.innerText = `${course} em Cachoeiro de Itapemirim.`;
-    }
-
-    function restartQuiz() {
-      result.style.display = 'none';
-      intro.style.display = 'block';
-    }
-
-    function sendEmail() {
-      const email = document.getElementById('email').value;
-      const resultado = resultText.innerText;
-
-      const params = {
-        to_email: email,
-        message: `Olá!\n\nObrigado por participar do nosso questionário de carreira no SENAI Cachoeiro de Itapemirim.\n\nO curso ideal para você é:\n\n${resultado}\n\nAcesse mais informações e faça sua matrícula aqui:\nhttps://loja.senaies.com.br/cursos/cidade/cachoeiro-de-itapemirim/5513\n\nAgradecemos sua visita ao SENAI!\n\nAtenciosamente,\nTurma 3 Desenvolvimento de Sistemas`
-      };
-
-      emailjs.send("service_urr7vo3", "template_pzber5t", params)
-        .then(() => {
-          messageBox.style.display = 'block';
-          messageBox.classList.remove('error');
-          messageText.innerText = "✅ Resultado enviado com sucesso para seu e-mail!";
-        }, (error) => {
-          messageBox.style.display = 'block';
-          messageBox.classList.add('error');
-          messageText.innerText = "❌ Ocorreu um erro ao enviar o e-mail. Verifique seus dados e tente novamente.";
-          console.error('FAILED...', error);
+          answerButtons.appendChild(button);
         });
-    }
-  </script>
-</body>
+      }
+
+      function selectAnswer(answer, button) {
+        selections[currentQuestionIndex] = answer.value;
+
+        const buttons = answerButtons.querySelectorAll('button');
+        buttons.forEach(btn => btn.classList.remove('selected'));
+
+        button.classList.add('selected');
+      }
+
+      function nextQuestion() {
+        if (currentQuestionIndex < questions.length - 1) {
+          currentQuestionIndex++;
+          showQuestion();
+        } else {
+          showResult();
+        }
+      }
+
+      function previousQuestion() {
+        if (currentQuestionIndex > 0) {
+          currentQuestionIndex--;
+          showQuestion();
+        }
+      }
+
+      function showResult() {
+        quiz.style.display = 'none';
+        result.style.display = 'block';
+
+        const counts = {
+          desenvolvimento: 0,
+          mecanica: 0,
+          eletro: 0,
+          logistica: 0
+        };
+
+        selections.forEach(value => {
+          counts[value] = (counts[value] || 0) + 1;
+        });
+
+        const topValue = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+
+        let course = "";
+        switch (topValue) {
+          case "desenvolvimento":
+            course = "Técnico em Desenvolvimento de Sistemas";
+            break;
+          case "mecanica":
+            course = "Técnico em Mecânica, Torneiro Mecânico ou Mecânico de Motores Ciclo Otto";
+            break;
+          case "eletro":
+            course = "Técnico em Eletrotécnica, Técnico em Eletromecânica ou Eletricista Industrial";
+            break;
+          case "logistica":
+            course = "Técnico em Planejamento e Controle da Produção";
+            break;
+          default:
+            course = "Diversos cursos disponíveis! Explore nossas opções no SENAI.";
+        }
+
+        resultText.innerText = `${course} em Cachoeiro de Itapemirim.`;
+      }
+
+      function restartQuiz() {
+        result.style.display = 'none';
+        intro.style.display = 'block';
+      }
+
+      function sendEmail() {
+        const email = document.getElementById('email').value;
+        const resultado = resultText.innerText;
+
+        const params = {
+          to_email: email,
+          message: `Olá!\n\nObrigado por participar do nosso questionário de carreira no SENAI Cachoeiro de Itapemirim.\n\nO curso ideal para você é:\n\n${resultado}\n\nAcesse mais informações e faça sua matrícula aqui:\nhttps://loja.senaies.com.br/cursos/cidade/cachoeiro-de-itapemirim/5513\n\nAgradecemos sua visita ao SENAI!\n\nAtenciosamente,\nTurma 3 Desenvolvimento de Sistemas`
+        };
+
+        emailjs.send("service_urr7vo3", "template_pzber5t", params)
+          .then(() => {
+            messageBox.style.display = 'block';
+            messageBox.classList.remove('error');
+            messageText.innerText = "✅ Resultado enviado com sucesso para seu e-mail!";
+          }, (error) => {
+            messageBox.style.display = 'block';
+            messageBox.classList.add('error');
+            messageText.innerText = "❌ Ocorreu um erro ao enviar o e-mail. Verifique seus dados e tente novamente.";
+            console.error('FAILED...', error);
+          });
+      }
+    </script>
+  </body>
 </html>
