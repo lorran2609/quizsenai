@@ -262,35 +262,35 @@
       }
 
       function showQuestion() {
-        const currentQuestion = questions[currentQuestionIndex];
-        questionElement.innerText = currentQuestion.question;
-        answerButtons.innerHTML = '';
-      
-        currentQuestion.answers.forEach(answer => {
-          const button = document.createElement('button');
-          button.innerText = answer.text;
-          button.className = 'answer-button';
-          button.onclick = () => selectAnswer(answer, button);
-          if (selections[currentQuestionIndex] === answer.value) {
-            button.classList.add('selected');
-          }
-          answerButtons.appendChild(button);
-          const nextBtn = document.querySelector('#quiz button:nth-of-type(2)'); // botão Próxima
-          nextBtn.disabled = !selections[currentQuestionIndex];
-          answerButtons.querySelectorAll('button').forEach(button => {
-          button.onclick = () => {
+      const currentQuestion = questions[currentQuestionIndex];
+      questionElement.innerText = currentQuestion.question;
+      answerButtons.innerHTML = '';
+    
+      currentQuestion.answers.forEach(answer => {
+        const button = document.createElement('button');
+        button.innerText = answer.text;
+        button.className = 'answer-button';
+        button.onclick = () => {
           selectAnswer(answer, button);
-          nextBtn.disabled = false;
-        });
-      
-        // Corrigido: lógica de visibilidade do botão Anterior
-        const prevButton = document.getElementById('prev-button');
-        if (currentQuestionIndex === 0) {
-          prevButton.style.display = 'none';
-        } else {
-          prevButton.style.display = 'inline-block';
+          document.getElementById('quiz').querySelector('button:nth-of-type(2)').disabled = false;
+        };
+        if (selections[currentQuestionIndex] === answer.value) {
+          button.classList.add('selected');
         }
+        answerButtons.appendChild(button);
+      });
+    
+      // Lógica de visibilidade do botão "Anterior"
+      if (currentQuestionIndex === 0) {
+        prevButton.style.display = 'none';
+      } else {
+        prevButton.style.display = 'inline-block';
       }
+    
+      // Desativa botão "Próxima" se nenhuma resposta foi selecionada
+      const nextBtn = document.querySelector('#quiz button:nth-of-type(2)');
+      nextBtn.disabled = !selections[currentQuestionIndex];
+    }
 
 
       function selectAnswer(answer, button) {
