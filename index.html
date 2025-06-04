@@ -110,9 +110,9 @@
       }
 
       .highlight {
-        color: #004aad;
+        color: #003366;
         font-weight: bold;
-        font-size: 22px;
+        font-size: 28px;
       }
 
       #message-box {
@@ -181,13 +181,17 @@
         </div>
 
         <section id="result" style="display: none;">
-          <h2>Seu Curso Ideal é:</h2>
-          <p id="result-text"></p>
-          <p>Digite seu e-mail para receber seu resultado:</p>
-          <input type="email" id="email" placeholder="seuemail@exemplo.com" />
-          <button onclick="sendEmail()">Enviar Resultado</button>
-          <button onclick="restartQuiz()">Refazer Quiz</button>
-        </section>
+        <p>Seu Curso Ideal é:</p>
+        <p id="result-text"></p>
+        <button id="btnReceberEmail" onclick="mostrarCampoEmail()">Receber resultado por e-mail</button>
+        <div id="campoEmail" style="display: none; margin-top: 10px;">
+            <label for="email">Digite seu e-mail:</label>
+            <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com">
+        </div>
+
+        <button id="btnEnviarResultado" onclick="sendEmail()" style="display: none;">Enviar Resultado</button>
+        <button onclick="restartQuiz()">Refazer Quiz</button>
+      </section>
       </div>
     </main>
 
@@ -398,6 +402,12 @@
           }, 5000);
         });
     }
+      function mostrarCampoEmail() {
+      document.getElementById('campoEmail').style.display = 'block';
+      document.getElementById('btnReceberEmail').style.display = 'none';  // Esconder botão "Receber resultado por e-mail"
+      document.getElementById('btnEnviarResultado').style.display = 'inline-block';  // Mostrar botão "Enviar Resultado"
+    }
+
     </script>
   </body>
 </html>
